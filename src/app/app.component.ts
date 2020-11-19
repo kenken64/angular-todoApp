@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, FormArray, FormGroupDirective } from '@angular/forms';
+
 import { v4 as uuidv4 } from 'uuid';
 import { Todo } from './todo';
 
@@ -9,7 +10,7 @@ import { Todo } from './todo';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  
+
   title = 'todoApp';
   form: FormGroup;
   tomorrow = new Date();
@@ -118,6 +119,6 @@ export class AppComponent implements OnInit{
     let updateRecordFound = this.todoValues.findIndex((i)=> i.taskId === this.editTaskid);
     this.todoValues[updateRecordFound] = singleTodo;
     localStorage.setItem(this.editTaskid, JSON.stringify(singleTodo));
-    this.isEditMode = false;  
+    this.isEditMode = false; 
   }
 }
