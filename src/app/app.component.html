@@ -40,6 +40,22 @@
                     </mat-card-content>
                 </mat-card>
                 <!-- end : add todo -->
+                <mat-divider></mat-divider>
+                <!-- list of tasks-->
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title><h2>List of ToDos 📝 </h2></mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-list role="list">
+                            <mat-list-item *ngFor="let todo of form.get('todos')?.controls; let i = index" [formGroup]="todo">
+                                <mat-checkbox formControlName="task" (change)="updateStatus(i)">
+                                    <span [ngClass]="{'todo-complete': todoValues[i].status}">{{todoValues[i].task}} - {{todoValues[i].dueDate | date}} &nbsp;</span>
+                                </mat-checkbox>
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-card-content>
+                </mat-card>
             </form>
         </div>
     </div>

@@ -58,4 +58,8 @@ export class AppComponent implements OnInit{
     // get from localstorage then update the todo array??
     localStorage.setItem(taskId, JSON.stringify(singleTodo));
   }
+  
+  updateStatus(index){
+    this.todoValues[index].status=true;
+  }
 }
