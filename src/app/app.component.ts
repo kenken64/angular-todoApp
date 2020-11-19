@@ -62,4 +62,18 @@ export class AppComponent implements OnInit{
   updateStatus(index){
     this.todoValues[index].status=true;
   }
+
+  onDelete(index, taskId){
+    const todosWithChkbox : FormArray = this.form.get('todos') as FormArray;
+    todosWithChkbox.removeAt(index);
+    let deleteRecordFound = this.todoValues.indexOf(index,0);
+    if(index > -1){
+      this.todoValues.splice(deleteRecordFound, 1);
+    }
+    localStorage.removeItem(taskId);
+  }
+
+  onEdit(index, taskId){
+
+  }
 }

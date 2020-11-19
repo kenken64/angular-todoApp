@@ -52,6 +52,13 @@
                                 <mat-checkbox formControlName="task" (change)="updateStatus(i)">
                                     <span [ngClass]="{'todo-complete': todoValues[i].status}">{{todoValues[i].task}} - {{todoValues[i].dueDate | date}} &nbsp;</span>
                                 </mat-checkbox>
+                                <button type="button" mat-icon-button color="warn" (click)="onDelete(i, todoValues[i].taskId)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                                &nbsp;
+                                <button type="button" mat-icon-button color="accent" (click)="onEdit(i, todoValues[i].taskId)">
+                                    <span class="material-icons">edit</span>
+                                </button>
                             </mat-list-item>
                         </mat-list>
                     </mat-card-content>
