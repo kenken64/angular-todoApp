@@ -9,12 +9,14 @@ import { Todo } from './todo';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  
   title = 'todoApp';
   form: FormGroup;
   tomorrow = new Date();
   todoValues = [];
   editTaskid: string;
   isEditMode: boolean = false;
+  priorities = ['Low', 'Medium', 'High'];
 
   taskFormControl = new FormControl('', [Validators.required]);
   priorityFormControl = new FormControl('', [Validators.required]);
@@ -24,6 +26,9 @@ export class AppComponent implements OnInit{
     this.tomorrow.setDate(this.tomorrow.getDate() +1);
   }
 
+  /**
+   * when the page first load
+   */
   ngOnInit(){
     this.form = this.fb.group({
       task: this.taskFormControl,
@@ -39,6 +44,9 @@ export class AppComponent implements OnInit{
     }
   }
 
+  /**
+   * add todo 
+   */
   addTodo(){
     const todosWithChkbox : FormArray = this.form.get('todos') as FormArray;
     let taskId = uuidv4();

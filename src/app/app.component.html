@@ -26,9 +26,7 @@
                         <div>
                             <label>Priority: </label>
                             <mat-radio-group arial-label="Select an option" formControlName="priority">
-                                <mat-radio-button value="1">Low &nbsp;</mat-radio-button>
-                                <mat-radio-button value="2">Medium &nbsp;</mat-radio-button>
-                                <mat-radio-button value="3">High &nbsp;</mat-radio-button>
+                                <mat-radio-button *ngFor="let p of priorities" value="{{p}}">{{p}} &nbsp;</mat-radio-button>
                             </mat-radio-group>
                             <div *ngIf="form.get('priority').invalid && (form.get('priority').dirty || form.get('priority').touched)">
                                 <mat-error *ngIf="form.get('priority').invalid">{{getPriorityErrorMessage()}}</mat-error>
@@ -55,7 +53,7 @@
                         <mat-list role="list">
                             <mat-list-item *ngFor="let todo of form.get('todos')?.controls; let i = index" [formGroup]="todo">
                                 <mat-checkbox formControlName="taskCheckbox" (change)="updateStatus(i)">
-                                    <span [ngClass]="{'todo-complete': todoValues[i].status}">{{todoValues[i].task}} - {{todoValues[i].dueDate | date}} &nbsp;</span>
+                                    <span [ngClass]="{'todo-complete': todoValues[i].status}">{{todoValues[i].task}} ({{todoValues[i].priority}}) - {{todoValues[i].dueDate | date}} &nbsp;</span>
                                 </mat-checkbox>
                                 <button type="button" mat-icon-button color="warn" (click)="onDelete(i, todoValues[i].taskId)">
                                     <span class="material-icons">delete</span>
