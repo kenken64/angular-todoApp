@@ -7,13 +7,15 @@
 <div fxLayout="column" fxLayoutAlign="start stretch" class="card">
     <div fxLayout="row" fxLayoutAlign="center">
         <div fxFlex="90%" fxFlex.md="66.6667%" fxFlex.gt-md="50%">
-            <form [formGroup]="form" (ngSubmit)="addTodo()">
+            <form [formGroup]="form" (ngSubmit)="addTodo()"
+                #formDirective="ngForm">
                 <mat-divider></mat-divider>
                 <!-- start : add todo -->
                 <mat-card>
                     <mat-card-header>
                         <mat-card-title>
-                            <h2>Add ToDo 📝 </h2>
+                            <h2 *ngIf="!isEditMode">Add ToDo 📝 {{form.invalid}}</h2>
+                            <h2 *ngIf="isEditMode">Edit ToDo 📝 </h2>
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
@@ -38,7 +40,8 @@
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
                         <br>
-                        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add</button>
+                        <button *ngIf="!isEditMode" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add</button>
+                        <button *ngIf="isEditMode" mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="updateEdit()">Update</button>
                     </mat-card-content>
                 </mat-card>
                 <!-- end : add todo -->
@@ -51,15 +54,18 @@
                     <mat-card-content>
                         <mat-list role="list">
                             <mat-list-item *ngFor="let todo of form.get('todos')?.controls; let i = index" [formGroup]="todo">
-                                <mat-checkbox formControlName="task" (change)="updateStatus(i)">
+                                <mat-checkbox formControlName="taskCheckbox" (change)="updateStatus(i)">
                                     <span [ngClass]="{'todo-complete': todoValues[i].status}">{{todoValues[i].task}} - {{todoValues[i].dueDate | date}} &nbsp;</span>
                                 </mat-checkbox>
                                 <button type="button" mat-icon-button color="warn" (click)="onDelete(i, todoValues[i].taskId)">
                                     <span class="material-icons">delete</span>
                                 </button>
                                 &nbsp;
-                                <button type="button" mat-icon-button color="accent" (click)="onEdit(i, todoValues[i].taskId)">
+                                <button *ngIf="!isEditMode" type="button" mat-icon-button color="accent" (click)="onEdit(i, todoValues[i].taskId)">
                                     <span class="material-icons">edit</span>
+                                </button>
+                                <button *ngIf="isEditMode" type="button" mat-icon-button color="accent" (click)="cancelEdit(formDirective)">
+                                    <span class="material-icons">close</span>
                                 </button>
                             </mat-list-item>
                         </mat-list>
