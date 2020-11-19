@@ -4,15 +4,19 @@
     </mat-toolbar-row>
 </mat-toolbar>
 
-<div>
-    <div>
-        <div>
+<div fxLayout="column" fxLayoutAlign="start stretch" class="card">
+    <div fxLayout="row" fxLayoutAlign="center">
+        <div fxFlex="90%" fxFlex.md="66.6667%" fxFlex.gt-md="50%">
+            <!-- <app-addTodo></app-addTodo>
+            <app-editTodo></app-editTodo> -->
             <form [formGroup]="form" (ngSubmit)="addTodo()">
                 <mat-divider></mat-divider>
                 <!-- start : add todo -->
                 <mat-card>
                     <mat-card-header>
-                        <mat-card-title><h2>Add ToDo 📝 </h2></mat-card-title>
+                        <mat-card-title>
+                            <h2>Add ToDo 📝 </h2>
+                        </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
                         <mat-form-field>

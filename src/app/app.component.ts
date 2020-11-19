@@ -13,6 +13,8 @@ export class AppComponent implements OnInit{
   form: FormGroup;
   tomorrow = new Date();
   todoValues = [];
+  editTaskid: string;
+  isEditMode: boolean = false;
 
   constructor(private fb: FormBuilder){
     this.tomorrow.setDate(this.tomorrow.getDate() +1);
@@ -31,6 +33,10 @@ export class AppComponent implements OnInit{
     if (this.form.get('priority').hasError('required')) {
       return 'You must enter a value';
     }
+  }
+
+  updateTodo(){
+
   }
 
   addTodo(){
@@ -74,6 +80,10 @@ export class AppComponent implements OnInit{
   }
 
   onEdit(index, taskId){
+    console.log(index);
+    console.log(taskId);
+    this.editTaskid = taskId;
+    this.isEditMode = true;
 
   }
 }

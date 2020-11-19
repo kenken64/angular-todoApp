@@ -14,6 +14,8 @@ import {
 } from '@angular/material-moment-adapter';
 
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'en-SG'},
