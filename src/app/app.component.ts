@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { v4 as uuidv4 } from 'uuid';
+import { Todo } from './todo';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,8 @@ export class AppComponent implements OnInit{
   title = 'todoApp';
   form: FormGroup;
   tomorrow = new Date();
-  
+  todoValues = [];
+
   constructor(private fb: FormBuilder){
     this.tomorrow.setDate(this.tomorrow.getDate() +1);
   }
@@ -19,8 +22,8 @@ export class AppComponent implements OnInit{
     this.form = this.fb.group({
       task: this.fb.control('', [Validators.required]),
       priority: this.fb.control('', [Validators.required]),
-      dueDate: this.fb.control('', [Validators.required])
-      
+      dueDate: this.fb.control('', [Validators.required]),
+      todos: new FormArray([]),
     });
   }
 
@@ -32,5 +35,27 @@ export class AppComponent implements OnInit{
 
   addTodo(){
     console.log("add todo");
+    console.log(this.form.value.task);
+    console.log(this.form.value.dueDate);
+    console.log(this.form.value.priority);
+    const todosWithChkbox : FormArray = this.form.get('todos') as FormArray;
+    let taskId = uuidv4();
+    console.log(taskId);
+    let singleTodo = new Todo(
+      this.form.value.task,
+      this.form.value.priority,
+      this.form.value.dueDate,
+      taskId
+    );
+    this.todoValues.push(singleTodo);
+    const todoGroup = this.fb.group({
+      task: this.fb.control(false)
+    });
+    todosWithChkbox.push(todoGroup);
+    this.form.get('task').reset();
+    this.form.get('priority').reset();
+    this.form.get('dueDate').reset();
+    // get from localstorage then update the todo array??
+    localStorage.setItem(taskId, JSON.stringify(singleTodo));
   }
 }
