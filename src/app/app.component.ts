@@ -31,6 +31,6 @@ export class AppComponent implements OnInit{
   }
 
   addTodo(){
-
+    console.log("add todo");
   }
 }

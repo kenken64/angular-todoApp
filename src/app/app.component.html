@@ -35,6 +35,8 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
+                        <br>
+                        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add</button>
                     </mat-card-content>
                 </mat-card>
                 <!-- end : add todo -->
