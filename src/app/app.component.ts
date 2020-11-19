@@ -110,6 +110,6 @@ export class AppComponent implements OnInit{
     let updateRecordFound = this.todoValues.findIndex((i)=> i.taskId === this.editTaskid);
     this.todoValues[updateRecordFound] = singleTodo;
     localStorage.setItem(this.editTaskid, JSON.stringify(singleTodo));
-    this.isEditMode = false; 
+    this.isEditMode = false;  
   }
 }
