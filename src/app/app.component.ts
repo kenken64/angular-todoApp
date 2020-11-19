@@ -70,9 +70,13 @@ export class AppComponent implements OnInit{
   }
 
   onDelete(index, taskId){
+    console.log(index);
+    console.log(taskId);
+    
     const todosWithChkbox : FormArray = this.form.get('todos') as FormArray;
+    
     todosWithChkbox.removeAt(index);
-    let deleteRecordFound = this.todoValues.indexOf(index,0);
+    let deleteRecordFound = this.todoValues.findIndex((i)=> i.taskId === taskId);
     if(index > -1){
       this.todoValues.splice(deleteRecordFound, 1);
     }
