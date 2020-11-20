@@ -21,7 +21,7 @@
                 <mat-form-field>
                     <input matInput formControlName="task">
                 </mat-form-field>
-                <div>
+                <!-- <div>
                     <label>Priority: </label>
                     <mat-radio-group arial-label="Select an option" formControlName="priority">
                         <mat-radio-button *ngFor="let p of priorities" value="{{p}}">{{p}} &nbsp;</mat-radio-button>
@@ -29,6 +29,14 @@
                     <div *ngIf="form.get('priority').invalid && (form.get('priority').dirty || form.get('priority').touched)">
                         <mat-error *ngIf="form.get('priority').invalid">{{getPriorityErrorMessage()}}</mat-error>
                     </div>
+                </div> -->
+                <mat-select arial-label="Select an option" formControlName="priority">
+                    <ng-container *ngFor="let p of priorities">
+                        <mat-option [value]="p">{{p}}</mat-option>
+                    </ng-container>
+                </mat-select>
+                <div *ngIf="form.get('priority').invalid && (form.get('priority').dirty || form.get('priority').touched)">
+                    <mat-error *ngIf="form.get('priority').invalid">{{getPriorityErrorMessage()}}</mat-error>
                 </div>
                 <mat-form-field>
                     <input matInput [matDatepicker]="picker" formControlName="dueDate" [min]="tomorrow">

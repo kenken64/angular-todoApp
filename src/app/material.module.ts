@@ -9,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
 
 const MATERIAL = [
     MatButtonModule,
@@ -20,7 +21,8 @@ const MATERIAL = [
     MatDatepickerModule,
     MatRadioModule,
     MatToolbarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule
 ];
 
 @NgModule ({

@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
   isEditMode: boolean = false;
   priorities = ['Low', 'Medium', 'High'];
   gridColumns = 1;
+  value: number;
 
   taskFormControl = new FormControl('', [Validators.required]);
   priorityFormControl = new FormControl('', [Validators.required]);
@@ -51,6 +52,7 @@ export class AppComponent implements OnInit{
    */
   addTodo(){
     const todosWithChkbox : FormArray = this.form.get('todos') as FormArray;
+    console.log(this.form.value.priority);
     let taskId = uuidv4();
     let singleTodo = new Todo(
       this.form.value.task,
