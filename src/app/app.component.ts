@@ -18,6 +18,7 @@ export class AppComponent implements OnInit{
   editTaskid: string;
   isEditMode: boolean = false;
   priorities = ['Low', 'Medium', 'High'];
+  gridColumns = 1;
 
   taskFormControl = new FormControl('', [Validators.required]);
   priorityFormControl = new FormControl('', [Validators.required]);
@@ -87,7 +88,6 @@ export class AppComponent implements OnInit{
   }
 
   onEdit(index, taskId){
-    console.log(index);
     this.editTaskid = taskId;
     this.isEditMode = true;
     let editTodoIdx = this.todoValues.findIndex((i)=> i.taskId === taskId);

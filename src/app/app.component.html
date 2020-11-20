@@ -3,73 +3,71 @@
         <span>My Todo App</span>
     </mat-toolbar-row>
 </mat-toolbar>
-
-<div fxLayout="column" fxLayoutAlign="start stretch" class="card">
-    <div fxLayout="row" fxLayoutAlign="center">
-        <div fxFlex="90%" fxFlex.md="66.6667%" fxFlex.gt-md="50%">
-            <form [formGroup]="form" (ngSubmit)="addTodo()"
-                #formDirective="ngForm">
-                <mat-divider></mat-divider>
-                <!-- start : add todo -->
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>
-                            <h2 *ngIf="!isEditMode">Add ToDo 📝 </h2>
-                            <h2 *ngIf="isEditMode">Edit ToDo 📝 </h2>
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <mat-form-field>
-                            <input matInput formControlName="task">
-                        </mat-form-field>
-
-                        <div>
-                            <label>Priority: </label>
-                            <mat-radio-group arial-label="Select an option" formControlName="priority">
-                                <mat-radio-button *ngFor="let p of priorities" value="{{p}}">{{p}} &nbsp;</mat-radio-button>
-                            </mat-radio-group>
-                            <div *ngIf="form.get('priority').invalid && (form.get('priority').dirty || form.get('priority').touched)">
-                                <mat-error *ngIf="form.get('priority').invalid">{{getPriorityErrorMessage()}}</mat-error>
-                            </div>
-                        </div>
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="picker" formControlName="dueDate" [min]="tomorrow">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                        <br>
-                        <button *ngIf="!isEditMode" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add</button>
-                        <button *ngIf="isEditMode" mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="updateEdit(formDirective)">Update</button>
-                    </mat-card-content>
-                </mat-card>
-                <!-- end : add todo -->
-                <mat-divider></mat-divider>
-                <!-- list of tasks-->
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title><h2>List of ToDos 📝 </h2></mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
-                        <mat-list role="list">
-                            <mat-list-item *ngFor="let todo of form.get('todos')?.controls; let i = index" [formGroup]="todo">
-                                <mat-checkbox formControlName="taskCheckbox" (change)="updateStatus(i)">
-                                    <span [ngClass]="{'todo-complete': todoValues[i].status}">{{todoValues[i].task}} ({{todoValues[i].priority}}) - {{todoValues[i].dueDate | date}} &nbsp;</span>
-                                </mat-checkbox>
-                                <button type="button" mat-icon-button color="warn" (click)="onDelete(i, todoValues[i].taskId)">
-                                    <span class="material-icons">delete</span>
-                                </button>
-                                &nbsp;
-                                <button *ngIf="!isEditMode" type="button" mat-icon-button color="accent" (click)="onEdit(i, todoValues[i].taskId)">
-                                    <span class="material-icons">edit</span>
-                                </button>
-                                <button *ngIf="isEditMode" type="button" mat-icon-button color="accent" (click)="cancelEdit(formDirective)">
-                                    <span class="material-icons">close</span>
-                                </button>
-                            </mat-list-item>
-                        </mat-list>
-                    </mat-card-content>
-                </mat-card>
-            </form>
+<div class="content">
+    <div fxFlexFill fxLayout="row wrap" fxLayout.xs="column wrap" fxLayout.sm="column wrap" fxLayoutGap="15px grid">
+      <div [fxFlex]="(100/gridColumns) + '%'">
+    <form [formGroup]="form" (ngSubmit)="addTodo()"
+        #formDirective="ngForm">
+        <mat-divider></mat-divider>
+        <!-- start : add todo -->
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    <h2 *ngIf="!isEditMode">Add ToDo 📝 </h2>
+                    <h2 *ngIf="isEditMode">Edit ToDo 📝 </h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field>
+                    <input matInput formControlName="task">
+                </mat-form-field>
+                <div>
+                    <label>Priority: </label>
+                    <mat-radio-group arial-label="Select an option" formControlName="priority">
+                        <mat-radio-button *ngFor="let p of priorities" value="{{p}}">{{p}} &nbsp;</mat-radio-button>
+                    </mat-radio-group>
+                    <div *ngIf="form.get('priority').invalid && (form.get('priority').dirty || form.get('priority').touched)">
+                        <mat-error *ngIf="form.get('priority').invalid">{{getPriorityErrorMessage()}}</mat-error>
+                    </div>
+                </div>
+                <mat-form-field>
+                    <input matInput [matDatepicker]="picker" formControlName="dueDate" [min]="tomorrow">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div>
+                    <button *ngIf="!isEditMode" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add</button>
+                    <button *ngIf="isEditMode" mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="updateEdit(formDirective)">Update</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <!-- end : add todo -->
+        <!-- list of tasks-->
+        <mat-card >
+            <mat-card-header>
+                <mat-card-title><h2>List of ToDos 📝 </h2></mat-card-title>
+            </mat-card-header>
+            <mat-card-content fxLayout="row wrap">
+                <mat-list role="list">
+                    <mat-list-item *ngFor="let todo of form.get('todos')?.controls; let i = index" [formGroup]="todo">
+                        <mat-checkbox formControlName="taskCheckbox" (change)="updateStatus(i)">
+                            <span [ngClass]="{'todo-complete': todoValues[i].status}">   {{todoValues[i].task}} ({{todoValues[i].priority}}) - {{todoValues[i].dueDate | date}} &nbsp;</span>
+                        </mat-checkbox>
+                        <button type="button" mat-icon-button color="warn" (click)="onDelete(i, todoValues[i].taskId)">
+                            <span class="material-icons">delete</span>
+                        </button>
+                        &nbsp;
+                        <button *ngIf="!isEditMode" type="button" mat-icon-button color="accent" (click)="onEdit(i, todoValues[i].taskId)">
+                            <span class="material-icons">edit</span>
+                        </button>
+                        <button *ngIf="isEditMode" type="button" mat-icon-button color="accent" (click)="cancelEdit(formDirective)">
+                            <span class="material-icons">close</span>
+                        </button>
+                    </mat-list-item>
+                </mat-list>
+            </mat-card-content>
+        </mat-card>
+    </form>
         </div>
     </div>
 </div>
