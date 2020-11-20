@@ -39,7 +39,7 @@
                         </mat-form-field>
                         <br>
                         <button *ngIf="!isEditMode" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Add</button>
-                        <button *ngIf="isEditMode" mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="updateEdit()">Update</button>
+                        <button *ngIf="isEditMode" mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="updateEdit(formDirective)">Update</button>
                     </mat-card-content>
                 </mat-card>
                 <!-- end : add todo -->

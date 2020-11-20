@@ -95,6 +95,10 @@ export class AppComponent implements OnInit{
   }
 
   cancelEdit(formDirective? : FormGroupDirective){
+    this.resetAll(formDirective);
+  }
+
+  resetAll(formDirective? : FormGroupDirective){
     this.isEditMode = false;
     this.form.reset();
     formDirective.resetForm();
@@ -106,10 +110,10 @@ export class AppComponent implements OnInit{
     this.priorityFormControl.setValidators([Validators.required]);
     this.priorityFormControl.updateValueAndValidity();
     this.dueDateFormControl.setValidators([Validators.required]);
-    this.dueDateFormControl.updateValueAndValidity();
+    this.dueDateFormControl.updateValueAndValidity();  
   }
   
-  updateEdit(){
+  updateEdit(formDirective? : FormGroupDirective){
     let singleTodo = new Todo(
       this.form.value.task,
       this.form.value.priority,
@@ -120,5 +124,6 @@ export class AppComponent implements OnInit{
     this.todoValues[updateRecordFound] = singleTodo;
     localStorage.setItem(this.editTaskid, JSON.stringify(singleTodo));
     this.isEditMode = false; 
+    this.resetAll(formDirective);
   }
 }
